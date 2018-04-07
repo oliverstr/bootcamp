@@ -7,25 +7,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ShoppingListService {
 
-  private _shoppingItems = [
-    {
-      name: 'Pera',
-      disabled: false
-    },
-    {
-      name: 'Maçã',
-      disabled: false
-    },
-    {
-      name: 'Batata',
-      disabled: false
-    },
-    {
-      name: 'Abacaxi',
-      disabled: true
-    },
-  ];
-
   constructor(private _http: HttpClient) { }
 
   getAll(): Observable<Array<any>> {
