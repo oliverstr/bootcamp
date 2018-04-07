@@ -39,7 +39,7 @@ testem.log
 /e2e/*.map
 
 #Firebase config
-/src/environments/*
+/src/environments
 
 # System Files
 .DS_Store

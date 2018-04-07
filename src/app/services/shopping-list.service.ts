@@ -1,39 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ShoppingListService {
 
-  constructor(private _http: HttpClient) { }
+  shoppingItemsFB: Observable<any[]>;
+  shoppingItemsRef: AngularFireList<any[]>;
 
-  getAll(): Observable<Array<any>> {
-    return this._http.get<Array<any>>(`${environment.firebase.databaseURL}/items.json`)
-    .map(response => {
-      const items = [];
-      if (response) {
-        Object.keys(response).map(id => {
-          const item: any = response[id];
-          item.key = id;
-          items.push(item);
+  constructor(private _http: HttpClient, private db: AngularFireDatabase) {
+    this.shoppingItemsRef = this.db.list('items');
+    this.shoppingItemsFB = this.shoppingItemsRef.snapshotChanges().map(
+      changes => {
+        return changes.map(c => {
+          return {
+            key: c.payload.key,
+            name: c.payload.val().name,
+            disabled: c.payload.val().disabled
+          };
         });
       }
-      return items;
-    });
+    );
   }
 
-  add(item): Observable<any> {
-    return this._http.post(`${environment.firebase.databaseURL}/items.json`, item);
+  add(item): void {
+    this.shoppingItemsRef.push(item);
   }
 
-  remove(item): Observable<any> {
-    return this._http.delete(`${environment.firebase.databaseURL}/items/${item.key}.json`);
+  remove(item): void {
+    this.shoppingItemsRef.remove(item.key);
   }
 
-  edit(item, key): Observable<any> {
-    return this._http.patch(`${environment.firebase.databaseURL}/items/${key}.json`, item);
+  edit(item, key): void {
+    this.shoppingItemsRef.update(key, item);
   }
 
 }

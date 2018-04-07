@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListService } from '../services/shopping-list.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,13 +9,12 @@ import { ShoppingListService } from '../services/shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit {
 
-  shoppingItems: Array<any> = [];
+  shoppingItems: Observable<any[]>;
 
-  constructor(private _shoppingService: ShoppingListService) {
-    this.getItems();
-   }
+  constructor(private _shoppingService: ShoppingListService) { }
 
   ngOnInit() {
+    this.shoppingItems = this._shoppingService.shoppingItemsFB;
   }
 
   addItem(form) {
@@ -22,22 +22,8 @@ export class ShoppingListComponent implements OnInit {
       name: form.value.name,
       disabled: false
     };
-    this._shoppingService.add(newItem).subscribe(
-      data => this.getItems(),
-      err => console.log(err)
-    );
+    this._shoppingService.add(newItem);
     form.reset();
-  }
-
-  getItems() {
-    this._shoppingService.getAll().subscribe(
-      data => this.shoppingItems = data,
-      err => console.log(err)
-    );
-  }
-
-  onDelete() {
-    this.getItems();
   }
 
 

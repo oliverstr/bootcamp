@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
 import { AppComponent } from './app.component';
@@ -13,6 +16,7 @@ import { ShoppingListService } from './services/shopping-list.service';
 import { AboutComponent } from './about/about.component';
 import { APP_ROUTES } from './app.routes';
 import { AuthService } from './services/auth.service';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -27,7 +31,10 @@ import { AuthService } from './services/auth.service';
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(APP_ROUTES),
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [ ShoppingListService, AuthService ],
   bootstrap: [AppComponent],

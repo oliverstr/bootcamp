@@ -9,7 +9,6 @@ import { ShoppingListService } from '../services/shopping-list.service';
 export class ShoppingItemComponent implements OnInit {
 
   @Input() shoppingItem;
-  @Output() deleting = new EventEmitter<any>();
 
   constructor(private _shoppingService: ShoppingListService) { }
 
@@ -17,19 +16,11 @@ export class ShoppingItemComponent implements OnInit {
   }
 
   remove(item) {
-    this._shoppingService.remove(item).subscribe(
-      data => {
-        this.deleting.emit();
-      },
-      err => console.log(err)
-    );
+    this._shoppingService.remove(item);
   }
 
   cross(item) {
-    this._shoppingService.edit({ disabled: true }, item.key).subscribe(
-      data => item.disabled = true,
-      err => console.log(err)
-    );
+    this._shoppingService.edit({ disabled: true }, item.key);
   }
 
 }
