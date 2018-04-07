@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
     <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="#" class="nav-link">My Shopping Cart</a>
-          <a href="#" class="nav-link">About</a>
+          <a routerLink="/list" class="nav-link">My Shopping Cart</a>
+          <a routerLink="/about" class="nav-link">About</a>
         </li>
       </ul>
     </nav>

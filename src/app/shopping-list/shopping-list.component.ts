@@ -8,10 +8,10 @@ import { ShoppingListService } from '../services/shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit {
 
-  shoppingItems: Array<any>;
+  shoppingItems: Array<any> = [];
 
   constructor(private _shoppingService: ShoppingListService) {
-    this.shoppingItems = this._shoppingService.getAll();
+    this.getItems();
    }
 
   ngOnInit() {
@@ -22,8 +22,22 @@ export class ShoppingListComponent implements OnInit {
       name: form.value.name,
       disabled: false
     };
-    this._shoppingService.add(newItem);
+    this._shoppingService.add(newItem).subscribe(
+      data => this.getItems(),
+      err => console.log(err)
+    );
     form.reset();
+  }
+
+  getItems() {
+    this._shoppingService.getAll().subscribe(
+      data => this.shoppingItems = data,
+      err => console.log(err)
+    );
+  }
+
+  onDelete() {
+    this.getItems();
   }
 
 

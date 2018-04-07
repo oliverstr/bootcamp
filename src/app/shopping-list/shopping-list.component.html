@@ -5,5 +5,5 @@
   </div>
 </form>
 <ul class="list-group mt-3">
-  <app-shopping-item *ngFor="let item of shoppingItems" [shoppingItem]="item"></app-shopping-item>
+  <app-shopping-item *ngFor="let item of shoppingItems" [shoppingItem]="item" (deleting)="onDelete()"></app-shopping-item>
 </ul>

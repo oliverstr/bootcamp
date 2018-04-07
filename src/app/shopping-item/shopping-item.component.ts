@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ShoppingListService } from '../services/shopping-list.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { ShoppingListService } from '../services/shopping-list.service';
 export class ShoppingItemComponent implements OnInit {
 
   @Input() shoppingItem;
+  @Output() deleting = new EventEmitter<any>();
 
   constructor(private _shoppingService: ShoppingListService) { }
 
@@ -16,11 +17,19 @@ export class ShoppingItemComponent implements OnInit {
   }
 
   remove(item) {
-    this._shoppingService.remove(item);
+    this._shoppingService.remove(item).subscribe(
+      data => {
+        this.deleting.emit();
+      },
+      err => console.log(err)
+    );
   }
 
   cross(item) {
-    this._shoppingService.cross(item);
+    this._shoppingService.edit({ disabled: true }, item.key).subscribe(
+      data => item.disabled = true,
+      err => console.log(err)
+    );
   }
 
 }
