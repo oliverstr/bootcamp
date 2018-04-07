@@ -1,0 +1,7 @@
+<li class="list-group-item" [ngClass]="{ disabled: shoppingItem.disabled }">
+  <span>{{ shoppingItem.name }}</span>
+  <span class="float-right" *ngIf="!shoppingItem.disabled">
+    <span class="badge badge-danger" (click)="remove(shoppingItem)">X</span>
+    <span class="badge badge-success" (click)="cross(shoppingItem)">&radic;</span>
+  </span>
+</li>

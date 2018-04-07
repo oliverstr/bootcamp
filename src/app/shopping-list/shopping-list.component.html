@@ -1,0 +1,9 @@
+<form #f="ngForm" (ngSubmit)="addItem(f)">
+  <div class="input-group mt-3">
+    <input type="text" class="form-control" placeholder="Item name" ngModel name="name" required>
+    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add</button>
+  </div>
+</form>
+<ul class="list-group mt-3">
+  <app-shopping-item *ngFor="let item of shoppingItems" [shoppingItem]="item"></app-shopping-item>
+</ul>
