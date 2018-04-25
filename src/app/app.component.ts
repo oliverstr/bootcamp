@@ -10,8 +10,12 @@ export class AppComponent {
 
   constructor(public authService: AuthService) { }
 
-  login() {
-    this.authService.login();
+  loginGoogle() {
+    this.authService.loginWithGoogle();
+  }
+
+  loginFacebook() {
+    this.authService.loginWithFacebook();
   }
 
   logout() {

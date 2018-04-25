@@ -17,6 +17,8 @@ export class ShoppingListService {
           return {
             key: c.payload.key,
             name: c.payload.val().name,
+            qt: c.payload.val().qt,
+            value: c.payload.val().value,
             disabled: c.payload.val().disabled
           };
         });

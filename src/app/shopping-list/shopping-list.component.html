@@ -1,9 +1,27 @@
 <form #f="ngForm" (ngSubmit)="addItem(f)">
-  <div class="input-group mt-3">
-    <input type="text" class="form-control" placeholder="Item name" ngModel name="name" required>
-    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add</button>
+  <div class="row mt-3">
+    <div class="col-12">
+      <input type="text" class="form-control" placeholder="Item name" ngModel name="name" required>
+    </div>
+  </div>
+  <div class="row mt-2">
+
+    <div class="col-5">
+      <input type="number" class="form-control" placeholder="Qt" ngModel name="qt" required>
+    </div>
+    <div class="col-5">
+      <input type="number" class="form-control" placeholder="Value" ngModel name="value" required>
+    </div>
+    <div class="col-2" style="padding: 0px">
+      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add</button>
+    </div>
+
   </div>
 </form>
 <ul class="list-group mt-3">
   <app-shopping-item *ngFor="let item of shoppingItems | async" [shoppingItem]="item"></app-shopping-item>
 </ul>
+<div class="float-right">
+  <h6 class="mt-3 text-muted text-right">Purchased: $ {{total_purchased}}</h6>
+  <h6 class="mt-2 text-right">Total: $ {{total}}</h6>
+</div>

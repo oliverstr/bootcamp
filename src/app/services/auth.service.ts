@@ -13,8 +13,12 @@ export class AuthService implements CanActivate {
     return true;
   }
 
-  login() {
+  loginWithGoogle() {
     this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+
+  loginWithFacebook() {
+    this.firebaseAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
   }
 
   logout() {

@@ -1,7 +1,9 @@
 <div class="container-fluid">
   <div *ngIf="authService.firebaseAuth.authState | async as user; else showLogin">
-    <p>Hi, {{ user.displayName }}!
-      <button (click)="logout()">logout</button>
+    <p class="user">Hi, {{ user.displayName }}!
+      <button (click)="logout()" class="float-right">
+        <fa name="sign-out"></fa>
+      </button>
     </p>
     <app-header></app-header>
     <div class="content">
@@ -10,7 +12,13 @@
   </div>
 
   <ng-template #showLogin>
-    <p>Please login</p>
-    <button (click)="login()">Login with Google</button>
+    <div class="d-flex flex-column justify-content-around align-items-center" style="height: 100vh">
+      <h4>Shoppping Cart App</h4>
+      <img src="/assets/img/shopping-cart.png" alt="Shopping cart logo" style="width: 40%">
+      <div style="width: 100%">
+        <button (click)="loginGoogle()" class="btn btn-default btn-lg btn-block mt-4">Login with Google</button>
+        <button (click)="loginFacebook()" class="btn btn-primary btn-lg btn-block mt-4">Login with Facebook</button>
+      </div>
+    </div>
   </ng-template>
 </div>
